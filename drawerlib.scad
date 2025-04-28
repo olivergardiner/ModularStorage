@@ -18,7 +18,7 @@ module interlock(width, depth, height) {
 	}
 }
 
-module housing(width, depth, height, thickness, interlock_thickness, easement, top=true, right=true, bottom=true, left=true, slots=1) {
+module housing(width, height, depth, thickness, interlock_thickness, easement, top=true, right=true, bottom=true, left=true, slots=1) {
 	t=2*thickness;
 	w=width+t;
 	h=height+t;
@@ -28,7 +28,7 @@ module housing(width, depth, height, thickness, interlock_thickness, easement, t
 		carcass(w, d, h, thickness, slots);
 		if (bottom) {
 			for(i=[0:slots-1]) {
-				translate([i*w+w/4-easement, -1, interlock_thickness])
+				translate([i*w+w/4-easement, -1, interlock_thickness+easement])
 					interlock(w/2+2*easement, d*0.9+1+2*easement, interlock_thickness+easement);
 			}
 		}
@@ -39,12 +39,12 @@ module housing(width, depth, height, thickness, interlock_thickness, easement, t
 	}
     if (top) {
         for(i=[0:slots-1]) {
-            translate([i*w+w/4, 0, h+interlock_thickness])
+            translate([i*w+w/4, 0, h+interlock_thickness+easement/2])
                 interlock(w/2, d*0.9, interlock_thickness);
         }
     }
 	if (right) {
-		translate([slots*w+interlock_thickness, 0, 3*h/4+easement])
+		translate([slots*w+interlock_thickness+easement/2, 0, 3*h/4+easement])
 			rotate([0,90,0])
 				interlock(h/2, d*0.9, interlock_thickness);
 	}
