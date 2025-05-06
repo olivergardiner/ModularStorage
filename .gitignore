@@ -1,4 +1,5 @@
-test.scad
+*test.scad
 *.stl
 *.gcode
 *.3mf
+*.rsdocx
