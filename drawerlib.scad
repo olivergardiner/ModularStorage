@@ -79,22 +79,22 @@ module handle(radius, thickness, width, height) {
 		cube([thickness, ht, height/2+ht]);
 }
 
-module fixedDivider(width, height, thickness, style) {
+module fixedDivider(width, height, thickness, slots, style) {
 	translate([0, -thickness/2, 0])
-		cube([width, thickness, height-thickness]);
+		cube([slots*width, thickness, height-thickness]);
 }
 
-module variableDivider(width, height, thickness, style) {
+module variableDivider(width, height, thickness, slots, style) {
 	translate([0, -3*thickness/2, 0])
 		cube([2*thickness, thickness, height-thickness]);
 
 	translate([0, thickness/2, 0])
 		cube([2*thickness, thickness, height-thickness]);
 
-	translate([width-2*thickness, -3*thickness/2, 0])
+	translate([slots*width-2*thickness, -3*thickness/2, 0])
 		cube([2*thickness, thickness, height-thickness]);
 
-	translate([width-2*thickness, thickness/2, 0])
+	translate([slots*width-2*thickness, thickness/2, 0])
 		cube([2*thickness, thickness, height-thickness]);
 }
 
@@ -114,17 +114,16 @@ module drawer(width, height, depth, thickness, radius, slots=1, compartments=2, 
 	for (i=[1:compartments-1]) {
 		translate([0, i*(depth-t)/compartments+thickness, 0]) {
 			if (style==0) {
-				fixedDivider(width=width, height=height, thickness=thickness);
+				fixedDivider(width=width, height=height, thickness=thickness, slots=slots);
 			}
 			else if (style==1) {
-				variableDivider(width=width, height=height, thickness=thickness);
+				variableDivider(width=width, height=height, thickness=thickness, slots=slots);
 			}
 		}
 	}
 }
 
-//drawer(width=54, height=52.25, depth=117, thickness=2, radius=13, compartments=4, style=1);
+//rotate([-90, 0, 0])
+//    housing(width=55.2, height=53.2, depth=117, thickness=2.5, interlock_thickness=1.4, easement=0.15, slots=1);
 
-//handle(radius=13, thickness=2, width=54, height=52.25); 
-
-//variableDivider(width=54, height=52.25, thickness=2, style=0);
+//drawer(width=54, height=52.25, depth=117, thickness=2, radius=13, compartments=4, slots=1, style=1);
